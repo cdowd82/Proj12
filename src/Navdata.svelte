@@ -4,6 +4,15 @@
     import Router from 'svelte-hash-router'
     import { fade, fly } from 'svelte/transition';
     import WorkupPage from '/Users/Chris/Projects/Proj12/src/Pages/WorkupPage.svelte';
+    import SearchPage from '/Users/Chris/Projects/Proj12/src/Pages/SearchPage.svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    let dispatch = createEventDispatcher();
+
+    const addNewRef = (e) => {
+        //const partientRef = e.detail
+        dispatch('addNewRef', e.detail);
+    };
 
     // Nav logic variables initial states 
     let showHome = true;
@@ -21,7 +30,6 @@
         showEval = false;
         showProce = false;
         showComp = false;
-
     };
 
     const enterHome = () => {
@@ -97,9 +105,8 @@
     <!-- WORKUP -->
     {#if showWorkup}
     <div class="workup-content" >
-        <div class="workup-w-box" in:fade="{{duration: 1000}}" >
-            <p>Workup</p>
-            <WorkupPage/>
+        <div class="workup-w-box" in:fade="{{duration: 1000}}">
+            <WorkupPage on:addNewRef={addNewRef}/>
         </div>
         <div class="workup-h-box" in:fade="{{duration: 300}}" on:click={enterHome}>
             <p>H</p>
@@ -123,9 +130,7 @@
     {#if showSearch}
     <div class="search-content" out:fade="{{duration: 1}}">
         <div class="search-s-box" in:fade="{{duration: 2500}}">
-            <div class="search">
-                <p>Search</p>
-            </div>
+            <SearchPage/>
         </div>
         <div class="search-h-box" in:fade="{{duration: 300}}" on:click={enterHome}>
             <p>H</p>
@@ -160,7 +165,7 @@
             <p>W</p>
         </div>
         <div class="eval-s-box" in:fly="{{y: 700, x: -700, duration: 800}}" on:click={enterSearch}>
-            <p>E</p>
+            <p>S</p>
         </div>
         <div class="eval-p-box" in:fly="{{y: 700, x: -700, duration: 1100}}" on:click={enterProce}>
             <p>P</p>
@@ -338,7 +343,7 @@
         grid-column-end: 1;
         grid-row-start: 1;
         grid-row-end: 6;
-        background: rgb(156, 100, 100);
+        background: rgb(253, 86, 86);
         color: rgb(255, 255, 255);
     }
 

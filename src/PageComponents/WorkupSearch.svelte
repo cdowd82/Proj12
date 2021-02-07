@@ -1,7 +1,8 @@
 <script></script>
 
 <div>
-    <input type="text" placeholder="Search W Patient">
+    <input class="search-input" type="text" placeholder="Search W Patient">
 </div>
 
-<style></style>
+<style>
+</style>

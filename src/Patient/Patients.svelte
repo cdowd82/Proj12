@@ -1,15 +1,16 @@
 <script lang="ts">
 
     import Patient from '/Users/Chris/Projects/Proj12/src/Patient/Patient.svelte';
-    //import type { db } from '/Users/Chris/Projects/Proj12/src/App.svelte';
+    //import { db } from '/Users/Chris/Projects/Proj12/src/App.svelte';
+
+    let patients = [];
 
     /*
     db.collection('patients').onSnapshot( data => {
-        
-    });
+        patients = data.docs
+    })
     */
 
-    let patients = [];
 </script>
 
 <div id="patients">

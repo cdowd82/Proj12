@@ -1,7 +1,7 @@
 <script></script>
 
 <div>
-    <p>Pre-Clinic</p>
+    <p>Clinic</p>
 </div>
 
 <style></style>

@@ -1,34 +1,73 @@
 <script>
+
     export let showNewRefModal = false;
+    import { fly } from 'svelte/transition';
+    import { createEventDispatcher } from 'svelte';
+
+    let dispatch = createEventDispatcher();
+
+    let firstName = "";
+    let middleNames = "";
+    let lastName = "";
+    let mrn = null;
+    let refDr =  "";
+    let dob = null;
+    let refDate = null; 
+    const patientRef = [{firstName: firstName}, {middleNames: middleNames},
+        {lastName: lastName}, {mrn: mrn}, {refDr: refDr}, {dob: dob}, {refDate: refDate} ];
+
+    const showData = () => {
+
+        patientRef.firstName = firstName;
+        patientRef.middleNames = middleNames;
+        patientRef.lastName = lastName;
+        patientRef.mrn = mrn;
+        patientRef.refDr = refDr;
+        patientRef.dob = dob;
+        patientRef.refDate = refDate;
+
+        dispatch('addNewRef', patientRef);
+
+    };
+
 </script>
 
-{#if showNewRefModal}
-    <div class="workupNewRefBD" on:click|self>
-        <div class="workupNewRefModal">
-            <p>Add Details </p>
-            <hr>
-            <form>
-                <input type="text" placeholder="First Name"><br>
-                <input type="text" placeholder="Middle Names"><br>
-                <input type="text" placeholder="Last Name"><br>
-                <input type="number" placeholder="MRN"><br>
-                <input type="text" placeholder="Referring Dr"><br>
-                <div>DOB </div><input type="date" placeholder="DOB"><br>
-                <div>Ref Date </div><input type="date" placeholder="Date of Referral"><br>
-                <br>
-                <div>Urgent (Y/N)</div>
-                <input type="checkbox" placeholder="Urgent (Y/N)">
+
+
+<div>
+    {#if showNewRefModal}
+        <div class="workupNewRefBD" in:fly="{{y: -1000, duration: 500}}" on:click|self>
+            <div class="workupNewRefModal" >
+                <p>Add Details </p>
                 <hr>
-                <button on:click>Add Patient</button>
-            </form>
+                <form on:submit|preventDefault={showData}>
+                    <input type="text" placeholder="First Name" bind:value={firstName}><br>
+                    <input type="text" placeholder="Middle Names" bind:value={middleNames}><br>
+                    <input type="text" placeholder="Last Name" bind:value={lastName}><br>
+                    <input type="number" placeholder="MRN" bind:value={mrn}><br>
+                    <input type="text" placeholder="Referring Dr" bind:value={refDr}><br>
+                    <label> DOB </label>
+                        <input type="date" placeholder="DOB" bind:value={dob}>
+                    <br>
+                    <div>Ref Date </div>
+                        <input type="date" placeholder="Date of Referral" bind:value={refDate}><br>
+                    <br>
+                    <div>Urgent (Y/N)</div>
+                    <input type="checkbox" placeholder="Urgent (Y/N)">
+                    <hr>
+                    <button type="submit">Add Patient</button>
+                </form>
+            </div>
         </div>
-    </div>
-{/if}
+    {/if}
+</div>
+
+
 
 <style>
 
     .workupNewRefBD {
-        width: 100%;
+        width: 90%;
         height: 100%;
         position: fixed;
         background: rgba(0, 0, 0, 0.8);
