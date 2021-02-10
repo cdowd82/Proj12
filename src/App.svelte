@@ -1,7 +1,7 @@
 <script>
 
   // Imports
-  import { FirebaseApp, User, Doc, Collection } from "sveltefire";
+  import { FirebaseApp, User } from "sveltefire";
   import firebase from "firebase/app";
   import "firebase/firestore";
   import "firebase/auth";
@@ -14,21 +14,6 @@
   import { currentUser } from '/Users/Chris/Projects/Proj12/src/user.js';
   import Navdata from '/Users/Chris/Projects/Proj12/src/Navdata.svelte';
   import Footer from '/Users/Chris/Projects/Proj12/src/Footer.svelte';
-
-  const addNewRef = (e) => {
-
-      const patientRef = e.detail
-      console.log("Top of tree");
-      console.log(patientRef.firstName);
-      console.log(patientRef.middleNames);
-      console.log(patientRef.lastName);
-      console.log(patientRef.mrn);
-      console.log(patientRef.refDr);
-      console.log(patientRef.dob);
-      console.log(patientRef.refDate);
-      alert("Patient Referral ADDED");
-
-  };
 
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
@@ -75,7 +60,6 @@ onMount(() => {
           // Signed in. Update login flag
           currentUser.set(email);
           navItems[4].label = $currentUser;
-          console.log(db);
       })
       .catch((error) => {
           var errorCode = error.code;
@@ -109,66 +93,6 @@ onMount(() => {
         </div>
       </div>
 
-              <!-- 3. 📜 Get a Firestore document owned by a user -->
-      <Doc path={`posts/${user.uid}`} let:data={post} let:ref={postRef} log>
-
-        <h2>{post.title}</h2>
-
-        <p>
-          Document
-          created at <em>{new Date(post.createdAt).toLocaleString()}</em>
-        </p>
-
-        <span slot="loading">Loading post...</span>
-        <span slot="fallback">
-          <button
-            on:click={() => postRef.set({
-                title: '📜 I like Svelte',
-                createdAt: Date.now()
-              })}>
-            Create Document
-          </button>
-        </span>
-
-        <!-- 4. 💬 Get all the comments in its subcollection -->
-
-        <h3>Comments</h3>
-        <Collection
-          path={postRef.collection('comments')}
-          query={ref => ref.orderBy('createdAt')}
-          let:data={comments}
-          let:ref={commentsRef}
-          log>
-
-          {#if !comments.length}
-              No comments yet...
-          {/if}
-
-          {#each comments as comment}
-            <p>
-              <!-- ID: <em>{comment.ref.id}</em> -->
-            </p>
-            <p>
-              {comment.text}
-              <button on:click={() => comment.ref.delete()}>Delete</button>
-            </p>
-          {/each}
-
-
-          <button
-            on:click={() => commentsRef.add({
-                text: '💬 Me too!',
-                createdAt: Date.now()
-              })}>
-            Add Comment
-          </button>
-
-          <span slot="loading">Loading comments...</span>
-
-        </Collection>
-      </Doc>
-
-
       <!-- Navbar -->
       <div transition:fly="{{y:1000, duration: 1200}}">
         <nav>
@@ -190,7 +114,7 @@ onMount(() => {
       </div>
 
       <!-- Content -->
-      <Navdata on:addNewRef={addNewRef}/>
+      <Navdata/>
       <Footer/>
 
     </User>
@@ -207,10 +131,6 @@ onMount(() => {
     padding: 1em;
     max-width: 240px;
     margin: 0 auto;
-  }
-
-  em {
-    color: #ff3e00;
   }
 
   @media (min-width: 640px) {

@@ -5,14 +5,6 @@
     import { fade, fly } from 'svelte/transition';
     import WorkupPage from '/Users/Chris/Projects/Proj12/src/Pages/WorkupPage.svelte';
     import SearchPage from '/Users/Chris/Projects/Proj12/src/Pages/SearchPage.svelte';
-    import { createEventDispatcher } from 'svelte';
-
-    let dispatch = createEventDispatcher();
-
-    const addNewRef = (e) => {
-        //const partientRef = e.detail
-        dispatch('addNewRef', e.detail);
-    };
 
     // Nav logic variables initial states 
     let showHome = true;
@@ -106,7 +98,7 @@
     {#if showWorkup}
     <div class="workup-content" >
         <div class="workup-w-box" in:fade="{{duration: 1000}}">
-            <WorkupPage on:addNewRef={addNewRef}/>
+            <WorkupPage/>
         </div>
         <div class="workup-h-box" in:fade="{{duration: 300}}" on:click={enterHome}>
             <p>H</p>

@@ -1,86 +1,17 @@
 <script>
 
-    export let showNewRefModal = false;
-    import { fly } from 'svelte/transition';
-    import { createEventDispatcher } from 'svelte';
-
-    let dispatch = createEventDispatcher();
-
-    let firstName = "";
-    let middleNames = "";
-    let lastName = "";
-    let mrn = null;
-    let refDr =  "";
-    let dob = null;
-    let refDate = null; 
-    const patientRef = [{firstName: firstName}, {middleNames: middleNames},
-        {lastName: lastName}, {mrn: mrn}, {refDr: refDr}, {dob: dob}, {refDate: refDate} ];
-
-    const showData = () => {
-
-        patientRef.firstName = firstName;
-        patientRef.middleNames = middleNames;
-        patientRef.lastName = lastName;
-        patientRef.mrn = mrn;
-        patientRef.refDr = refDr;
-        patientRef.dob = dob;
-        patientRef.refDate = refDate;
-
-        dispatch('addNewRef', patientRef);
-
-    };
+    import CollectionPatients from '/Users/Chris/Projects/Proj12/src/Database/CollectionPatients.svelte';
 
 </script>
 
 
 
 <div>
-    {#if showNewRefModal}
-        <div class="workupNewRefBD" in:fly="{{y: -1000, duration: 500}}" on:click|self>
-            <div class="workupNewRefModal" >
-                <p>Add Details </p>
-                <hr>
-                <form on:submit|preventDefault={showData}>
-                    <input type="text" placeholder="First Name" bind:value={firstName}><br>
-                    <input type="text" placeholder="Middle Names" bind:value={middleNames}><br>
-                    <input type="text" placeholder="Last Name" bind:value={lastName}><br>
-                    <input type="number" placeholder="MRN" bind:value={mrn}><br>
-                    <input type="text" placeholder="Referring Dr" bind:value={refDr}><br>
-                    <label> DOB </label>
-                        <input type="date" placeholder="DOB" bind:value={dob}>
-                    <br>
-                    <div>Ref Date </div>
-                        <input type="date" placeholder="Date of Referral" bind:value={refDate}><br>
-                    <br>
-                    <div>Urgent (Y/N)</div>
-                    <input type="checkbox" placeholder="Urgent (Y/N)">
-                    <hr>
-                    <button type="submit">Add Patient</button>
-                </form>
-            </div>
-        </div>
-    {/if}
+    <CollectionPatients/>
 </div>
 
 
 
 <style>
 
-    .workupNewRefBD {
-        width: 90%;
-        height: 100%;
-        position: fixed;
-        background: rgba(0, 0, 0, 0.8);
-    }
-
-    .workupNewRefModal {
-        padding: 10px;
-        border-radius: 10px;
-        max-width: 400px;
-        margin: 3% auto;
-        text-align: center;
-        background:  rgb(179, 102, 172);
-        color: white;
-    }
-    
 </style>
