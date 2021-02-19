@@ -7,6 +7,8 @@
     };
 </script>
 
+
+
 <form on:submit|preventDefault={addPatient}>
     <div>
         <input type="text" class="input" bind:value={patientName} placeholder="Patient Name">
@@ -15,3 +17,9 @@
         <button>Add Patient</button>
     </div>
 </form>
+
+
+
+<style>
+    
+</style>

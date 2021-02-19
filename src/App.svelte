@@ -69,7 +69,6 @@ onMount(() => {
   }
 
   firebase.initializeApp(firebaseConfig);
-  
 
 </script>
 

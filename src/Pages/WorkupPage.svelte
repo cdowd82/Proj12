@@ -4,6 +4,7 @@
     import WorkupSearch from '/Users/Chris/Projects/Proj12/src/PageComponents/WorkupSearch.svelte';
     import WorkupClinic from '/Users/Chris/Projects/Proj12/src/PageComponents/WorkupClinic.svelte';
     import WorkupPreClinic from '/Users/Chris/Projects/Proj12/src/PageComponents/WorkupPreClinic.svelte';
+    import WorkupShowPatients from '/Users/Chris/Projects/Proj12/src/PageComponents/WorkupShowPatients.svelte';
 
 </script>
 
@@ -14,6 +15,7 @@
     <WorkupNewRef/>
     <WorkupPreClinic/>
     <WorkupClinic/>
+    <WorkupShowPatients/>
 
 </div>
 

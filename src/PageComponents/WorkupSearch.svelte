@@ -4,16 +4,17 @@
     import { Collection } from 'sveltefire';
     let dispatch = createEventDispatcher();
     let searchedPatient = "";
-    let showSearchList = false;
+    let showSearchList = true;
 
     function toggleShowSearchList() {
         showSearchList = !showSearchList;
     };
 
     const dispatchSearchPatient = () => {
-        dispatch('searchPatient', searchedPatient);
+        console.log("search search");
+        console.log(showSearchList);
+        console.log(searchedPatient);
         searchedPatient = "";
-        toggleShowSearchList(); 
     };
 
 </script>
@@ -21,27 +22,32 @@
 
 
 <div>
-    <form on:submit|preventDefault={dispatchSearchPatient}>
-        <input class="search-input" type="text" placeholder="Search W Patient" bind:value={searchedPatient}>
-        <button type="submit">Search Workup</button>
-    </form>
 
     <Collection path={'patients/'} let:ref={patientRef} let:data={patients}>
 
-        {#if showSearchList}
+        <form on:submit|preventDefault={dispatchSearchPatient}>
+            <input class="search-input" type="text" placeholder="Search W Patient" bind:value={searchedPatient}>
+        </form>
+
+        {#if searchedPatient != ""}
             <div>
-            <ul>
-            {#each patients as { patientName, dob, journeyState}}
-                {#if journeyState == 'W' && searchedPatient == patientName}
-                        <li>
-                            <p>{patientName} DOB: {dob}<p>
-                        </li>
-                {/if}
-            {/each}
+            <ul class="no-bullets">
+                {#each patients as { patientName, dob, journeyState, firstName, middleNames, lastName}}
+                        {#if (searchedPatient == patientName && journeyState == "W")
+                            || (searchedPatient == firstName && journeyState == "W")
+                            || (searchedPatient == lastName && journeyState == "W")
+                            || (searchedPatient == (firstName + ' ' + lastName) && journeyState == "W")
+                            || (searchedPatient == (firstName + ' ' + middleNames) && journeyState == "W")
+                        }
+                                <li>
+                                    <p>{patientName}   DOB: {dob}   Journey State: {journeyState}<p>
+                                </li>
+                    {/if}
+                {/each}
             <ul>
             </div>
         {/if}
-
+        
     </Collection>
 
 </div>
@@ -49,4 +55,8 @@
 
 
 <style>
+        ul.no-bullets {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+    }
 </style>
