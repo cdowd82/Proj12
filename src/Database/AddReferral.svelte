@@ -61,6 +61,7 @@
             refDate = "";
             refAdded= false;
             toggleShowNewRefModal();
+            console.log(patientRef.id);
         }
     };
 

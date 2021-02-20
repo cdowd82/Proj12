@@ -4,10 +4,15 @@
 
 </script>
 
-<div>
+<div class="new-ref-modal">
     <WorkupNewRefModal/>
 </div>
 
 <style>
+
+    .new-ref-modal {
+        height: 100%;
+        width: 100%;
+    }
     
 </style>

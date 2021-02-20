@@ -32,7 +32,7 @@
         {#if searchedPatient != ""}
             <div>
             <ul class="no-bullets">
-                {#each patients as { patientName, dob, journeyState, firstName, middleNames, lastName}}
+                {#each patients as { patientName, dob, journeyState, firstName, middleNames, lastName, id}}
                         {#if (searchedPatient == patientName && journeyState == "W")
                             || (searchedPatient == firstName && journeyState == "W")
                             || (searchedPatient == lastName && journeyState == "W")
@@ -40,7 +40,7 @@
                             || (searchedPatient == (firstName + ' ' + middleNames) && journeyState == "W")
                         }
                                 <li>
-                                    <p>{patientName}   DOB: {dob}   Journey State: {journeyState}<p>
+                                    <p>{patientName}   DOB: {dob}   Journey State: {journeyState} {id}<p>
                                 </li>
                     {/if}
                 {/each}
