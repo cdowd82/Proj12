@@ -9,6 +9,7 @@
   import "firebase/analytics";
   import { fade, fly } from 'svelte/transition';
   import { onMount } from "svelte";
+  import { Collection } from 'sveltefire'
   
   // My imports
   import { currentUser } from '/Users/Chris/Projects/Proj12/src/user.js';
@@ -29,6 +30,7 @@
   let email = '';
   let password = '';
   let showMobileMenu = false; // Show mobile icon and display menu
+  let wPatientNum = 0;
 
 // List of navigation items
 const navItems = [
@@ -38,6 +40,16 @@ const navItems = [
   { label: "About", href: "#" },
   { label: currentUser, href: "#"}
 ];
+
+// get workup patient count
+function wPatientCount() {
+    wPatientNum += 1;
+}
+
+// reset workup patient count
+function resetWPatientCount() {
+  wPatientNum = 0;
+}
 
 // Mobile menu click event handler
 const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
@@ -53,6 +65,7 @@ onMount(() => {
     const mediaListener = window.matchMedia("(max-width: 767px)");
     mediaListener.addListener(mediaQueryHandler);
 });
+
 
   // Sign in auth
   function signIn() {
@@ -79,7 +92,17 @@ onMount(() => {
   <FirebaseApp {firebase}>
     <!-- Get the current user -->
     <User let:user let:auth>
-       
+
+      <Collection path={'patients/'} let:data={patients} let:ref={patientRef}>
+        <div>
+            {#each patients as { journeyState, firstName, lastName}, i}
+                {#if ((journeyState == 'W') && (firstName != "") && (lastName != ""))}
+                    <p hidden>{wPatientCount()}</p> 
+                {/if}
+            {/each}
+        </div>
+    </Collection>
+    
       <!-- Landing login -->
       <div in:fade="{{y:1000, duration: 2000}}" slot="signed-out">
         <div>
@@ -100,12 +123,12 @@ onMount(() => {
               <div class="middle-line"></div>
             </div>
             <ul class={`navbar-list${showMobileMenu ? ' mobile' : ''}`}>
-              <li><a href="/#/"> <div class="nav-tavr">Liverpool-TAVR<sup>2</sup>: 18</div></a></li>
+              <li><a href="/#/"> <div class="nav-tavr">Liverpool-TAVR<sup>2</sup>: {wPatientNum}</div></a></li>
               <li><a href={navItems[0].href}>{navItems[0].label}</a></li>
               <li><a href={navItems[1].href}>{navItems[1].label}</a></li>
               <li><a href={navItems[2].href}>{navItems[2].label}</a></li>
               <li><a href={navItems[3].href}>{navItems[3].label}</a></li>
-              <li><a href={navItems[4].href} on:click={() => auth.signOut()}>
+              <li><a href={navItems[4].href} on:click={resetWPatientCount()} on:click={() => auth.signOut()}>
                  Logout: {navItems[4].label}</a></li>
             </ul>
           </div>
@@ -113,11 +136,15 @@ onMount(() => {
       </div>
 
       <!-- Content -->
-      <Navdata/>
+      <Navdata {wPatientNum}/>
       <Footer/>
+
+      <!-- -->
+
 
     </User>
   </FirebaseApp>
+
 </main>
 
 

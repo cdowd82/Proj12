@@ -6,6 +6,9 @@
     import WorkupPage from '/Users/Chris/Projects/Proj12/src/Pages/WorkupPage.svelte';
     import SearchPage from '/Users/Chris/Projects/Proj12/src/Pages/SearchPage.svelte';
 
+    // count variables
+    export let wPatientNum;
+
     // Nav logic variables initial states 
     let showHome = true;
     let showWorkup = false;
@@ -80,7 +83,8 @@
                 <p>Search</p>
             </div>
             <div class="workup-box" in:fade="{{duration: 1300}}" on:click={enterWorkup}>
-                <p>Workup</p>
+
+                <p>Workup: {wPatientNum}</p>
             </div>
             <div class="evaluation-box" in:fade="{{duration: 1000}}" on:click={enterEval}>
                 <p>Evaluation</p>

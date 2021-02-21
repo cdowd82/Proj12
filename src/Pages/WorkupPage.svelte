@@ -6,18 +6,52 @@
     import WorkupPreClinic from '/Users/Chris/Projects/Proj12/src/PageComponents/WorkupPreClinic.svelte';
     import WorkupShowPatients from '/Users/Chris/Projects/Proj12/src/PageComponents/WorkupShowPatients.svelte';
 
+    // display logic variables
+    let showNewRef;
+    let showWorkupPatients;
+
+    // display logic functions
+    const showNewRefModal = (e) => {
+        showNewRef = e.detail;
+    }
+
+    const showWorkupPatientList = (e) => {
+        showWorkupPatients = e.detail;
+    }
+
 </script>
 
-<div>
 
-    <h1>Workup</h1>
-    <WorkupSearch/>
-    <WorkupNewRef/>
+
+<div>
+    {#if !showNewRef}
+        {#if !showWorkupPatients}
+            <h1>Workup</h1>
+        {/if}
+    {/if}
+
+    {#if !showNewRef}
+        {#if !showWorkupPatients}
+            <WorkupSearch/>
+        {/if}
+    {/if}
+
+    {#if !showWorkupPatients} 
+        <WorkupNewRef on:showNewRefModal={showNewRefModal}/>
+    {/if}
+
+    <!--
     <WorkupPreClinic/>
     <WorkupClinic/>
-    <WorkupShowPatients/>
+    -->
+
+    {#if !showNewRef}
+        <WorkupShowPatients on:showWorkupPatientList={showWorkupPatientList}/>
+    {/if}
 
 </div>
+
+
 
 <style>
     
