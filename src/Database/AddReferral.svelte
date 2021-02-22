@@ -10,6 +10,7 @@
     let medicalHistory = "";
     let medications = "";
     let allergiesAndReactions = "";
+    let funcStatus = "";
     let socialStatus = "";
     let patientName = "";
     let firstName = '';
@@ -39,10 +40,12 @@
                                     medications,
                                     allergiesAndReactions,
                                     socialStatus,
+                                    funcStatus,
                                     firstName, 
                                     middleNames, 
                                     lastName, 
                                     mrn, 
+                                    age,
                                     refDr, 
                                     dob, 
                                     refDate, 
@@ -94,13 +97,13 @@
             <textarea class="medical-history" cols="30" rows="10" placeholder="Medical History" bind:value={medicalHistory}/>
                 <label> Medications </label>
             <textarea class="medications" cols="30" rows="10" placeholder="Medications" bind:value={medications}/>
-                <label> Allergies and Adverse Drung Reactions </label>
+                <label> Allergies and Adverse Drug Reactions </label>
             <textarea class="allerges-and-reactions" cols="30" rows="10" 
-                placeholder="Allergies and Adverse Drung Reactions" bind:value={allergiesAndReactions}/>
+                placeholder="Allergies and Adverse Drug Reactions" bind:value={allergiesAndReactions}/>
                 <label> Social Status </label>
             <textarea class="social-status" cols="30" rows="10" placeholder="Social Status" bind:value={socialStatus}/>
-                <label> Funcational Status </label>
-            <textarea class="funcational-status" cols="30" rows="10" placeholder="Funcational Status"></textarea> 
+                <label> Functional Status </label>
+            <textarea class="functional-status" cols="30" rows="10" placeholder="Functional Status"></textarea> 
             <hr>
             <label> Carry Patient? (tick for yes) </label>
                 <input type="checkbox" bind:value={CarryPatient}><br>

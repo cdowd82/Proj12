@@ -34,12 +34,6 @@
                                     <div class="patient-name" on:click={ () => {showPatientWorkup(id)}}>
                                         {patientName} DOB: {dob} Journey State: {journeyState}
                                     </div>
-                                    <!--
-                                    <div class="patient-name" on:click={ () => (selectedPatientId = id)} 
-                                            on:click={ () => console.log(selectedPatientId)}>
-                                        {patientName} DOB: {dob} Journey State: {journeyState}
-                                    </div>
-                                    -->
                                     <div class="delete-btn">
                                         <button on:click|self={() => {
                                             if (confirm("Confirm Delete")) { 

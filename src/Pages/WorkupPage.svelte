@@ -24,16 +24,12 @@
 
 
 <div>
-    {#if !showNewRef}
-        {#if !showWorkupPatients}
+    {#if !showNewRef && !showWorkupPatients}
             <h1>Workup</h1>
-        {/if}
     {/if}
 
-    {#if !showNewRef}
-        {#if !showWorkupPatients}
+    {#if !showNewRef && !showWorkupPatients}
             <WorkupSearch/>
-        {/if}
     {/if}
 
     {#if !showWorkupPatients} 
@@ -48,7 +44,6 @@
     {#if !showNewRef}
         <WorkupShowPatients on:showWorkupPatientList={showWorkupPatientList}/>
     {/if}
-
 </div>
 
 
